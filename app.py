@@ -1,17 +1,22 @@
 from flask import Flask
-import os
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(_name_)
+app = Flask(__name__)
 
-@app.route("/")
+# Your app configuration goes here
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///yourdatabase.db'  # Replace with your actual database URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Define your models, routes, etc.
+
+@app.route('/')
 def home():
-    return "Hello, Flask!"
+    return "Hello, Flask is running!"
 
-if _name_ == "_main_":
-    port = 5000  
-    if "PORT" in os.environ:
-        port = int(os.environ["PORT"])
-    
-   
-    app.run(debug=False, host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    # Update this to bind to all IP addresses and port 5000
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
 
